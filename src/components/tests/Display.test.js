@@ -1,17 +1,17 @@
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Display from "../Display";
 
+const testShow = {
+	name: "name",
+	summary: "summary",
+	seasons: [{ id: 1, name: "name", episodes: [] }],
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
+it("renders without props passed in", () => {
+	render(<Display />);
+});
 
 ///Tasks:
 //1. Add in nessisary imports and values to establish the testing suite.
