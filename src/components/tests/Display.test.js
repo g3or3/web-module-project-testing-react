@@ -1,17 +1,37 @@
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Display from "../Display";
+import fetchShow from "../../api/fetchShow";
 
+jest.mock("../../api/fetchShow");
 
+const testShow = {
+	name: "name",
+	summary: "summary",
+	seasons: [{ id: 1, name: "name", episodes: [] }],
+};
 
+const { getByRole, findByTestId, queryAllByTestId } = screen;
 
+it("renders without props passed in", () => {
+	render(<Display />);
+});
 
+it("show component displays when fetch button is clicked", async () => {
+	fetchShow.mockResolvedValueOnce(testShow);
+	const mockDisplayFunc = jest.fn();
 
+	render(<Display displayFunc={mockDisplayFunc} />);
 
+	userEvent.click(getByRole("button"));
 
+	expect(await findByTestId("show-container")).toBeInTheDocument();
 
+	expect(queryAllByTestId("season-option")).toHaveLength(1);
 
-
-
-
-
+	expect(mockDisplayFunc).toHaveBeenCalled();
+});
 
 ///Tasks:
 //1. Add in nessisary imports and values to establish the testing suite.
